@@ -7,12 +7,31 @@ using System.Threading.Tasks;
 
 namespace Task_Manager.Models
 {
-    public class Admin
+    public class Admin : User
     {
-        public string UserName { get; set; } = "User";
+        public void CreateProject()
+        {
 
-        [PasswordPropertyText(true)]
-        public string Password { get; set; } = "Admin";
+        }
+        public void DeleteProject(Project project)
+        {
 
+        }
+        public void UpdateProject(Project project)
+        {
+
+        }
+        public void CreateTask(Project project)
+        {
+
+        }
+        public void DeleteTask(Tasks task)
+        {
+
+        }
+        public void UpdateTask(Tasks task)
+        {
+
+        }
     }
 }
