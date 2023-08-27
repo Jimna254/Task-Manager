@@ -14,5 +14,14 @@ namespace Task_Manager.DataBase
             optionsBuilder.UseSqlServer("Server=DESKTOP-KDHQCIN;Initial Catalog = Task-Manager;Trusted_Connection=True; TrustServerCertificate=True; User Id = sa; Password= @Stockholm01");
         }
 
+        protected override void OnModelCreating(ModelBuilder modelBuilder)
+        {
+            
+        }
+        public DbSet<Models.Admin> Admins { get; set; }
+        public DbSet<Models.User> Users { get; set; }
+        public DbSet<Models.Project> Projects { get; set; }
+        public DbSet<Models.Tasks> Tasks { get; set; }
+
     }
 }
