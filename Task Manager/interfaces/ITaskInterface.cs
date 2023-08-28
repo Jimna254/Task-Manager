@@ -9,6 +9,7 @@ namespace Task_Manager.interfaces
 {
     public interface ITaskInterface
     {
+        
         public Task<ResponseService> AssignTask(User user);
 
         public Task<ResponseService> UpdateTask(Tasks task);
@@ -17,9 +18,9 @@ namespace Task_Manager.interfaces
 
         public Task<ResponseService> CreateTask(Project project, Tasks task);
 
-        public Task<ResponseService> ViewTask(Tasks task);
+        public Task<List<ResponseService>> ViewTask(Tasks task);
 
-        public Task<ResponseService> ViewAllTasks();
+        public Task<List<ResponseService>> ViewAllTasks();
 
         public Task<ResponseService> MarkTaskAsComplete(Tasks task);
 

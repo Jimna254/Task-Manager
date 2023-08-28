@@ -7,25 +7,34 @@ using System.Threading.Tasks;
 
 namespace Task_Manager.Models
 {
-    public class Admin: User
+    public class Admin : User
     {
-        public void CreateProject(){
+        public void CreateProject()
+        {
+
 
         }
-        public void DeleteProject(Project project){
+        public void DeleteProject(Project project)
+        {
 
         }
-        public void UpdateProject(Project project){
+        public void UpdateProject(Project project)
+        {
 
         }
-        public void CreateTask(Project project){
+        public void CreateTask(Project project)
+        {
 
         }
-        public void DeleteTask(Tasks task){
-            
+        public void DeleteTask(Tasks task)
+        {
+
         }
-        public void UpdateTask(Tasks task){
-            
+        public void UpdateTask(Tasks task)
+        {
+
         }
+
+
     }
 }

@@ -52,12 +52,12 @@ namespace Task_Manager.Models
             throw new NotImplementedException();
         }
 
-        public Task<ResponseService> ViewTask(Tasks task)
+        public Task<List<ResponseService>> ViewTask(Tasks task)
         {
             throw new NotImplementedException();
         }
 
-        public Task<ResponseService> ViewAllTasks()
+        public Task<List<ResponseService>> ViewAllTasks()
         {
             throw new NotImplementedException();
         }
