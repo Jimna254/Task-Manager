@@ -1,4 +1,5 @@
 ﻿
+using System.ComponentModel.DataAnnotations;
 using Task_Manager.interfaces;
 using Task_Manager.services;
 
@@ -6,9 +7,14 @@ namespace Task_Manager.Models
 {
     public class Project: IProject
     {
-        public int Id { get; set; }
+        [Key]
+        public int ProjectId { get; set; }
         public string? Title { get; set; }
-        public List<Task> Tasks { get; set; } = new List<Task>();
+        public List<Tasks> Tasks { get; set; } = new List<Tasks>();
+
+        public User? User { get; set; }
+
+        
 
         public Task<ResponseService> CreateProject(Project project)
         {

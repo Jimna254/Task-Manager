@@ -3,17 +3,16 @@ using System.Collections.Generic;
 using System.ComponentModel;
 using System.ComponentModel.DataAnnotations;
 using Microsoft.EntityFrameworkCore;
+using Task_Manager.Enums;
 using Task_Manager.services;
 
 namespace Task_Manager.Models
 {
     public class User
     {
-        public enum UserType
-        {
-            Admin,
-            User
-        }
+
+        [Key]
+        public int UserId { get; set; }
 
         public string UserName { get; set; } = string.Empty;
 
@@ -22,7 +21,7 @@ namespace Task_Manager.Models
         public string Email { get; set; } = string.Empty;
         public bool IsAdmin { get; set; } = false;
 
-
+        public UserType UserType { get; set; }
 
         public User()
         {
@@ -59,7 +58,6 @@ namespace Task_Manager.Models
         //USER LOGIN
         public void Login(string userName, string password, string email,UserType userType)
         {
-            this.UserName = userName;
             this.Password = password;
             this.Email = email;
             this.IsAdmin = userType == UserType.Admin;

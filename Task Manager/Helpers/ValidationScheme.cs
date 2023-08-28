@@ -5,15 +5,18 @@ using System.Runtime.CompilerServices;
 using System.Threading.Tasks;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.IdentityModel.Tokens;
+using Task_Manager.Enums;
 using Task_Manager.Models;
+
 
 namespace Task_Manager.Helpers
 {
     public class ValidationScheme
     {
-        public  bool validateInput(string username, string password)
+        public bool validateInput(string username, string password)
         {
-            if(String.IsNullOrWhiteSpace(username)|| String.IsNullOrWhiteSpace(password)){
+            if (String.IsNullOrWhiteSpace(username) || String.IsNullOrWhiteSpace(password))
+            {
                 Console.WriteLine("Username or Password cannot be empty");
                 return false;
             }
@@ -43,14 +46,19 @@ namespace Task_Manager.Helpers
 
 
         public bool ValidateAdminInDatabase(string UserName, string Password, DbContext dbContext)
+        {
+            var admin = dbContext.Set<User>()
+                                 .Where(u => u.UserName == UserName && u.Password == Password && u.UserType == UserType.Admin)
+                                 .FirstOrDefault();
+
+            if (admin == null)
             {
-               var admin = dbContext.Set<Admin>().Where(u => u.UserName == UserName && u.Password == Password).FirstOrDefault();
-               if(admin == null){
-                   Console.WriteLine("Admin does not exist");
-                   return false;
-               }
-               return true;
+                Console.WriteLine("Admin does not exist");
+                return false;
             }
 
+            return true;
         }
+
+    }
 }

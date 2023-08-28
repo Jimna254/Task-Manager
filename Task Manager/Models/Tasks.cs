@@ -4,8 +4,10 @@ using System.ComponentModel.DataAnnotations;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using Task_Manager.Enums;
 using Task_Manager.interfaces;
 using Task_Manager.services;
+using TaskStatus = Task_Manager.Enums.TaskStatus;
 
 namespace Task_Manager.Models
 {
@@ -15,13 +17,18 @@ namespace Task_Manager.Models
         [Key]
         public int TaskId { get; set; }
 
+
+       public Project? Project { get; set; }
         public string? Title { get; set; }
+
 
         public string? Description { get; set; }
 
         public string? Type { get; set; }
 
-        public bool? IsCompleted { get; set; }
+        public TaskPriority taskPriority { get; set; } = TaskPriority.Medium;
+
+        public TaskStatus taskStatus { get; set; } = TaskStatus.UnAssigned;
 
         public DateTime? DueDate { get; set; }
 
@@ -62,6 +69,11 @@ namespace Task_Manager.Models
             throw new NotImplementedException();
         }
         public Task<ResponseService> MarkTaskAsComplete(Tasks task)
+        {
+            throw new NotImplementedException();
+        }
+
+        internal static Tasks FirstOrDefault(Func<object, bool> value)
         {
             throw new NotImplementedException();
         }

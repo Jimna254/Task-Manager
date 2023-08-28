@@ -4,6 +4,7 @@ using System.Linq;
 using System.Threading.Tasks;
 using Task_Manager.Helpers;
 using Task_Manager.Models;
+using Task_Manager.Enums;
 
 namespace Task_Manager.services
 {
@@ -44,7 +45,7 @@ namespace Task_Manager.services
                             validation.validateInput(userName, password);
                             // create an admin
                             var admin = new Admin();
-                            admin.Login(userName, password, email, User.UserType.Admin);
+                            admin.Login(userName, password, email, UserType.Admin);
                             break;
                         case "2":
                             Console.WriteLine("Please enter your username");
@@ -56,7 +57,7 @@ namespace Task_Manager.services
                             var validation2 = new ValidationScheme();
                             validation2.validateInput(userName2, password2);
                             var user2 = new User();
-                            user2.Login(userName2, password2, email2, User.UserType.User);
+                            user2.Login(userName2, password2, email2, UserType.User);
                             break;
                         default:
                             Console.WriteLine("Invalid option");
@@ -72,7 +73,7 @@ namespace Task_Manager.services
                     var validation1 = new ValidationScheme();
                     validation1.validateInput(userName1, password1);
 
-                    user1.Login(userName1, password1, null, User.UserType.User);
+                    user1.Login(userName1, password1, null, UserType.User);
                     break;
                 case "3":
                     Console.WriteLine("Thank you for using TaskIt Task Management System");

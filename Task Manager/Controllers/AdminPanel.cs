@@ -24,6 +24,7 @@ namespace Task_Manager.services
             Console.WriteLine("3.Assign A Task");
             Console.WriteLine("3.View Assigned Projects");
             Console.WriteLine("4.View Completed Projects");
+            Console.WriteLine();
             Console.WriteLine("5.Logout");
 
             var AdminOptions = Console.ReadLine();
