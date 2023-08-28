@@ -11,7 +11,7 @@ namespace Task_Manager.Helpers
 {
     public class ValidationScheme
     {
-        public  bool  validateInput(string username, string password)
+        public  bool validateInput(string username, string password)
         {
             if(String.IsNullOrWhiteSpace(username)|| String.IsNullOrWhiteSpace(password)){
                 Console.WriteLine("Username or Password cannot be empty");
