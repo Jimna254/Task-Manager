@@ -73,6 +73,15 @@ namespace Task_Manager.Models
 
 
         }
+
+        public void Logout()
+        {
+            this.UserName = string.Empty;
+            this.Password = string.Empty;
+            this.Email = string.Empty;
+            this.IsAdmin = false;
+
+        }
         
 
     }
