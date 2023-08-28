@@ -13,6 +13,7 @@ namespace Task_Manager.Models
         public Task<ResponseService> CreateProject(Project project)
         {
             throw new NotImplementedException();
+            //logic to create project
         }
 
         public Task<ResponseService> DeleteProject(int id)

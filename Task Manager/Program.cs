@@ -1,4 +1,13 @@
 ﻿
+
 using Task_Manager.services;
 
-UserMenu userMenu = new UserMenu();
+class Program
+{
+    static void Main(string[] args)
+    {
+        UserMenu.MenuOptions();
+
+    }
+
+}

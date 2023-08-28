@@ -3,84 +3,94 @@ using System.Collections.Generic;
 using System.ComponentModel;
 using System.ComponentModel.DataAnnotations;
 using Microsoft.EntityFrameworkCore;
-using Task_Manager.DataBase;
 using Task_Manager.services;
 
 namespace Task_Manager.Models
 {
-    public enum UserType
-    {
-        Admin,
-        User
-    }
     public class User
     {
-        [Key]
-        public int UserID { get; set; }
+        public enum UserType
+        {
+            Admin,
+            User
+        }
+
         public string UserName { get; set; } = string.Empty;
 
         [PasswordPropertyText(true)] public string Password { get; set; } = "User";
 
         public string Email { get; set; } = string.Empty;
+        public bool IsAdmin { get; set; } = false;
 
-        public UserType userType { get; set; } = UserType.User;
+
+
+        public User()
+        {
+
+        }
 
         // USER METHODS 
 
 
         //USER REGISTER
-        public void Register()
+        public void Register(string userName, string password, string email, UserType userType)
         {
-            // Logic for user registration
-            var User = new User
-            {
-                UserName = this.UserName,
-                Password = this.Password,
-                Email = this.Email,
-                userType = this.userType
-            };
+            this.UserName = userName;
+            this.Password = password;
+            this.Email = email;
+            this.IsAdmin = userType == UserType.Admin;
 
-            using (var dbContext = new AppDbContext())
+            if (!IsAdmin)
             {
-                dbContext.Users.Add(User);
-                dbContext.SaveChanges();
+                var user = new User();
+                user.Register(userName, password, email,  UserType.User);
+
             }
-        }
-
-        // user login
-
-        public void Login(int userID, string userName, string password, string email, UserType userType)
-        {
-            // Logic for user login
-            using (var dbContext = new AppDbContext())
+            else
             {
-                var user = dbContext.Users.Find(userID);
-                if (user != null)
-                {
-                    UserName = userName;
-                    Password = password;
-                    Email = email;
-                    this.userType = userType;
-                }
+                var Admin = new User();
+                Admin.Register(userName, password, email, UserType.Admin);
+
             }
         }
 
 
-        // user logout
+
+        //USER LOGIN
+        public void Login(string userName, string password, string email,UserType userType)
+        {
+            this.UserName = userName;
+            this.Password = password;
+            this.Email = email;
+            this.IsAdmin = userType == UserType.Admin;
+
+            if (!IsAdmin)
+            {
+                var user = new User();
+                user.Login(userName, password, email, UserType.User);
+
+            }
+            else
+            {
+                var Admin = new User();
+                Admin.Login(userName, password, email, UserType.Admin);
+                    
+            }
+
+
+        }
 
         public void Logout()
         {
-            // Logic for user logout
             this.UserName = string.Empty;
             this.Password = string.Empty;
             this.Email = string.Empty;
-            this.userType = UserType.User;
+            this.IsAdmin = false;
+
         }
+        
 
-     
     }
-
-
 }
-
+        
 
