@@ -51,6 +51,7 @@ namespace Task_Manager.Models
                 var Admin = new User();
                 Admin.Register(userName, password, email, UserType.Admin);
 
+
             }
         }
 
