@@ -77,7 +77,8 @@ namespace Task_Manager.services
                     validation1.validateInput(userName1, password1);
                     // if  admin login as admin
                     user1.Login(userName1, password1, email1, User.UserType.Admin);
-                    
+                    var adminPanel = new AdminPanel();
+                    adminPanel.ShowAdminPanel();
                     //If user login as user
                     user1.Login(userName1, password1, email1, User.UserType.User);
                     break;
