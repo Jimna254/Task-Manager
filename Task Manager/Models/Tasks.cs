@@ -11,14 +11,15 @@ using TaskStatus = Task_Manager.Enums.TaskStatus;
 
 namespace Task_Manager.Models
 {
-    public class Tasks: ITaskInterface
+    public class Tasks
     {
         // BEGIN THE TASK PROPERTIES
         [Key]
         public int TaskId { get; set; }
 
 
-       public Project? Project { get; set; }
+        public Project? Project { get; set; }
+        public int ProjectId { get; set; }
         public string? Title { get; set; }
 
 
@@ -36,46 +37,5 @@ namespace Task_Manager.Models
         public User? AssignedTo { get; set; }
 
 
-// BEGIN THE TASK METHODS
-       
-
-        public Task<ResponseService> AssignTask(User user)
-        {
-            throw new NotImplementedException();
-        }
-
-        public Task<ResponseService> UpdateTask(Tasks task)
-        {
-            throw new NotImplementedException();
-        }
-
-        public Task<ResponseService> DeleteTask(Tasks task)
-        {
-            throw new NotImplementedException();
-        }
-
-        public Task<ResponseService> CreateTask(Project project, Tasks task)
-        {
-            throw new NotImplementedException();
-        }
-
-        public Task<List<ResponseService>> ViewTask(Tasks task)
-        {
-            throw new NotImplementedException();
-        }
-
-        public Task<List<ResponseService>> ViewAllTasks()
-        {
-            throw new NotImplementedException();
-        }
-        public Task<ResponseService> MarkTaskAsComplete(Tasks task)
-        {
-            throw new NotImplementedException();
-        }
-
-        internal static Tasks FirstOrDefault(Func<object, bool> value)
-        {
-            throw new NotImplementedException();
-        }
     }
 }

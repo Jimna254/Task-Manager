@@ -44,7 +44,7 @@ namespace Task_Manager.services
                             var validation = new ValidationScheme();
                             validation.validateInput(userName, password);
                             // create an admin
-                            var admin = new Admin();
+                            var admin = new User();
                             admin.Login(userName, password, email, UserType.Admin);
                             break;
                         case "2":
