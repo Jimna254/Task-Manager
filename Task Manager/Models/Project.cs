@@ -1,4 +1,5 @@
 ﻿
+using System.ComponentModel.DataAnnotations.Schema;
 using Task_Manager.interfaces;
 using Task_Manager.services;
 
@@ -7,8 +8,13 @@ namespace Task_Manager.Models
     public class Project: IProject
     {
         public int Id { get; set; }
+
+        public int ProjectId { get; set; }
+        [ForeignKey("UserId")]
+        public int UserId { get; set; }
+        public User? User { get; set; }
         public string? Title { get; set; }
-        public List<Task> Tasks { get; set; } = new List<Task>();
+        public List<ProjectTasks> Tasks { get; set; } = new List<ProjectTasks>();
 
         public Task<ResponseService> CreateProject(Project project)
         {
@@ -36,7 +42,7 @@ namespace Task_Manager.Models
             throw new NotImplementedException();
         }
 
-        public Task<List<ResponseService>> AssignTask(int Taskid)
+        public Task<List<ResponseService>> AssignTask(int projectTaskId)
         {
             throw new NotImplementedException();
         }

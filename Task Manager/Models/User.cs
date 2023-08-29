@@ -1,12 +1,13 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.ComponentModel;
-using System.ComponentModel.DataAnnotations;
-using Microsoft.EntityFrameworkCore;
+
 using Task_Manager.DataBase;
 using Task_Manager.interfaces;
 using Task_Manager.services;
 using System.Threading.Tasks;
+using Task_Manager.Helpers;
+using System.ComponentModel.DataAnnotations;
 
 namespace Task_Manager.Models
 {
@@ -17,7 +18,8 @@ namespace Task_Manager.Models
             Admin,
             User
         }
-
+        [Key]
+        public int Userid { get; set; } 
         public string UserName { get; set; } = string.Empty;
 
         [PasswordPropertyText(true)]
@@ -28,19 +30,26 @@ namespace Task_Manager.Models
 
         public User()
         {
-        }
 
+        }
         // USER METHODS 
         // USER REGISTER
         public async Task<ResponseService> Register(string userName, string password, string email, UserType userType)
         {
             try
             {
-                var user = new User();
+                var user = new User
+                {
+                    UserName = userName,
+                    Password = password,
+                    Email = email,
+                    IsAdmin = userType == UserType.Admin
+                };
+
                 var db = new AppDbContext();
-                await user.Register(userName, password, email, userType);
                 db.Users.Add(user);
                 await db.SaveChangesAsync();
+
                 var response = new ResponseService { Message = "User Created successfully" };
                 return response;
             }
@@ -52,33 +61,51 @@ namespace Task_Manager.Models
         }
 
 
+
         // USER LOGIN
         public async Task<ResponseService> Login(string userName, string password, string email, UserType userType)
         {
-            this.UserName = userName;
-            this.Password = password;
-            this.Email = email;
-            this.IsAdmin = userType == UserType.Admin;
-
-            if (!IsAdmin)
+            try
             {
-                var user = new User();
-                await user.Login(userName, password, email, UserType.User);
-            }
-            else
-            {
-                var admin = new User();
-                await admin.Login(userName, password, email, UserType.Admin);
-            }
+                var db = new AppDbContext();
+                var validation = new ValidationScheme();
+                var isUserValid = validation.ValidateAdminInDatabase(userName, password);
 
-            return new ResponseService();
+                if (!isUserValid)
+                {
+                    return new ResponseService { Message = "You are not currently registered in our system. Please register first." };
+                }
+
+                await Login(userName, password, email, userType);
+                return new ResponseService { Message = "Login Successful" };
+            }
+            catch (Exception e)
+            {
+                Console.WriteLine(e.Message);
+                return new ResponseService();
+            }
         }
 
         // USER LOGOUT
         public async Task<ResponseService> Logout()
         {
-            Console.WriteLine("You have been logged out");
-            return new ResponseService();
+            try
+            {
+                var db = new AppDbContext();
+                var user = new User();
+                await user.Logout();
+                db.Users.Remove(user);
+                await db.SaveChangesAsync();
+                var response = new ResponseService { Message = "User Logged out successfully" };
+                return response;
+
+
+            }
+            catch (Exception e)
+            {
+                Console.WriteLine(e.Message);
+                return new ResponseService();
+            }
         }
     }
 }

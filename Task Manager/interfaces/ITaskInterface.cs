@@ -10,19 +10,19 @@ namespace Task_Manager.interfaces
     public interface ITaskInterface
     {
         
-        public Task<ResponseService> AssignTask(User user);
+        public Task<ResponseService> AssignTask(int TaskId, int UserId);
 
-        public Task<ResponseService> UpdateTask(Tasks task);
+        public Task<ResponseService> UpdateTask(Models.ProjectTasks task);
 
-        public Task<ResponseService> DeleteTask(Tasks task);
+        public Task<ResponseService> DeleteTask(Models. ProjectTasks tasks);
 
-        public Task<ResponseService> CreateTask(Project project, Tasks task);
+        public Task<ResponseService> CreateTask(int projectId);
 
-        public Task<List<ResponseService>> ViewTask(Tasks task);
+        public Task<List<ProjectTasks>> ViewTask(int taskId);
 
-        public Task<List<ResponseService>> ViewAllTasks();
+        public Task<List<ProjectTasks>> ViewAllTasks();
 
-        public Task<ResponseService> MarkTaskAsComplete(Tasks task);
+        public Task<ResponseService> MarkTaskAsComplete(int TaskId);
 
         
     }

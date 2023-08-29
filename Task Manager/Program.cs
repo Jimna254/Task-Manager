@@ -1,5 +1,7 @@
 ﻿
 
+using Microsoft.EntityFrameworkCore;
+using Task_Manager.DataBase;
 using Task_Manager.services;
 
 class Program
@@ -8,6 +10,8 @@ class Program
     {
         UserMenu.MenuOptions();
 
+
     }
 
 }
+
