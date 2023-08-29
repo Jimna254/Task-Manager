@@ -17,20 +17,11 @@ namespace Task_Manager.services
         private readonly ITaskInterface _taskInterface;
         private readonly IuserActions _userActions;
 
-
-
-
-
-        public AdminPanel(Admin admin)
+        public AdminPanel( )
         {
-            _admin = admin;
+           
+            _admin = new Admin();
         }
-
-
-
-
-
-
 
         public async Task ShowAdminPanel()
         {
@@ -78,7 +69,6 @@ namespace Task_Manager.services
             {
                 case 1:
                     var project = new Project();
-                    var admin = new Admin();
                     var createProjectResponse = await _admin.CreateProject(project);
                     Console.WriteLine(createProjectResponse.Message);
                     break;

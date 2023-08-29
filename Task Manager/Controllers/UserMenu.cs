@@ -46,7 +46,6 @@ namespace Task_Manager.services
                             // create an admin
                             var admin = new Admin();
                             admin.Register(userName, password, email, User.UserType.Admin);
-                           
                             break;
                         case "2":
                             Console.WriteLine("Please enter your username");
@@ -67,20 +66,26 @@ namespace Task_Manager.services
                     break;
                 case "2":
                     Console.WriteLine("Please enter your username");
-                    var userName1 = Console.ReadLine();
+                    var UserName = Console.ReadLine();
                     Console.WriteLine("Please enter your password");
-                    var password1 = Console.ReadLine();
+                    var Password = Console.ReadLine();
                     Console.WriteLine("Please enter your email");
                     var email1 = Console.ReadLine();
                     var user1 = new User();
                     var validation1 = new ValidationScheme();
-                    validation1.validateInput(userName1, password1);
-                    // if  admin login as admin
-                    user1.Login(userName1, password1, email1, User.UserType.Admin);
-                    var adminPanel = new AdminPanel();
-                    adminPanel.ShowAdminPanel();
-                    //If user login as user
-                    user1.Login(userName1, password1, email1, User.UserType.User);
+                    validation1.validateInput(UserName, Password);
+                    // Check if the user is an admin
+                    if (validation1.ValidateUserInDatabase(UserName, Password) && validation1.ValidateAdminInDatabase(UserName, Password))
+                    {
+                        //var adminPanel = new AdminPanel();
+                        //adminPanel.ShowAdminPanel();
+                    }
+                    else if (validation1.ValidateUserInDatabase(UserName, Password))
+                    {
+                        // If the user is not an admin, login as a user
+                        user1.Login(UserName, Password, email1, userType: User.UserType.User);
+                    }
+
                     break;
                 case "3":
                     Console.WriteLine("Thank you for using TaskIt Task Management System");
@@ -89,6 +94,9 @@ namespace Task_Manager.services
                     Console.WriteLine("Invalid option");
                     break;
             }
+
+            var adminPanel = new AdminPanel();
+            adminPanel.ShowAdminPanel();
             Console.WriteLine("How would  you like to continue?");
             Console.WriteLine("++++++++++++++++++++++++++++++++++");
             Console.WriteLine("====================================");
@@ -107,7 +115,7 @@ namespace Task_Manager.services
                     var taskId = Console.ReadLine();
                     var validation = new ValidationScheme();
                     validation.Validate(taskId);
-                   var taskIds = int.TryParse(taskId, out var taskId1) ? taskId1 : 0;   
+                    var taskIds = int.TryParse(taskId, out var taskId1) ? taskId1 : 0;
                     var task = new ProjectTasks();
                     task.ViewTask(taskIds);
                     break;
@@ -129,7 +137,7 @@ namespace Task_Manager.services
                     // exit the environment 
                     Console.WriteLine("Thank you for using TaskIt Task Management System");
                     break;
-                    default:
+                default:
                     Console.WriteLine("Invalid option");
                     break;
             }

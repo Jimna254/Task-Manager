@@ -4,6 +4,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using Microsoft.Extensions.Logging;
 using Task_Manager.Models;
 
 namespace Task_Manager.DataBase
@@ -13,8 +14,7 @@ namespace Task_Manager.DataBase
         protected override void OnConfiguring(DbContextOptionsBuilder optionsBuilder)
         {
             optionsBuilder.UseSqlServer(@"Server=localhost; Database= TaskManagerDB; Trusted_Connection=True; TrustServerCertificate=True");
-            optionsBuilder.LogTo(Console.WriteLine);
-        
+            optionsBuilder.LogTo(Console.WriteLine, LogLevel.Information);
         }
         protected override void OnModelCreating(ModelBuilder modelBuilder)
         {

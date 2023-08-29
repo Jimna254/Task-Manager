@@ -7,18 +7,19 @@ using Microsoft.EntityFrameworkCore;
 using Microsoft.IdentityModel.Tokens;
 using Task_Manager.DataBase;
 using Task_Manager.Models;
+using static Task_Manager.Models.User;
 
 namespace Task_Manager.Helpers
 {
     public class ValidationScheme
     {
-        private readonly AppDbContext dbContext= new AppDbContext();
+        private readonly AppDbContext dbContext = new AppDbContext();
 
 
 
-        public bool validateInput(string username, string password)
+        public bool validateInput(string Password, string UserName)
         {
-            if (String.IsNullOrWhiteSpace(username) || String.IsNullOrWhiteSpace(password))
+            if (String.IsNullOrWhiteSpace(UserName) || String.IsNullOrWhiteSpace(Password))
             {
                 Console.WriteLine("Username or Password cannot be empty");
                 return false;
@@ -42,40 +43,53 @@ namespace Task_Manager.Helpers
         {
             try
             {
-                var user = dbContext.Set<User>().Where(u => u.UserName == UserName && u.Password == Password)
-                    .FirstOrDefault();
-                if (user == null)
+                var admin = dbContext.Set<User>().Where(u => u.UserName == UserName && u.Password == Password&&u.IsAdmin==false).FirstOrDefault();
+                if (admin != null)
                 {
-                    Console.WriteLine("User does not exist");
+                    // Admin exists
+                    Console.WriteLine($"You have successfully signed in as {UserName}");
                     return false;
                 }
+                // User exists but is not an admin
+                Console.WriteLine("Please TRY Again");
+                return true;
             }
             catch (Exception e)
             {
                 Console.WriteLine(e);
+                return false;
             }
-
-            return true;
         }
+
 
         public bool ValidateAdminInDatabase(string UserName, string Password)
         {
             try
             {
-                var admin = dbContext.Set<Admin>().Where(u => u.UserName == UserName && u.Password == Password).FirstOrDefault();
-                if (admin == null)
+                var admin = dbContext.Set<Admin>().Where(u => u.UserName == UserName && u.Password == Password && u.IsAdmin ==true).FirstOrDefault();
+                if (admin != null)
                 {
-                    Console.WriteLine("Admin does not exist");
-                    return false;
+                    // Admin exists
+                    Console.WriteLine("You have successfully signed in as an Admin");
+                    return true;
+
                 }
+
+                // User exists but is not an admin
+                Console.WriteLine($"You have successfully signed in as {UserName}");
+                return false;
             }
             catch (Exception e)
             {
                 Console.WriteLine(e);
+                return false;
             }
-
-            return true;
-
         }
+
+
+
+
+
+
     }
 }
