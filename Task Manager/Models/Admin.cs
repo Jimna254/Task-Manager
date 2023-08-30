@@ -26,11 +26,11 @@ namespace Task_Manager.Models
         {
 
         }
-        public void DeleteTask(Tasks task)
+        public void DeleteTask(ProjectTasks task)
         {
 
         }
-        public void UpdateTask(Tasks task)
+        public void UpdateTask(ProjectTasks task)
         {
 
         }
